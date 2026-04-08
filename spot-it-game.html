@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spot It! – P.S. Crepe You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(160deg, #ffe4f0 0%, #ffd6eb 50%, #ffc8e8 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── FLOATING HEARTS BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ctext y='40' font-size='24' opacity='0.07'%3E🩷%3C/text%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      width: 100%;
+      background: linear-gradient(135deg, #ff69b4 0%, #ff1493 60%, #e91e8c 100%);
+      color: white;
+      text-align: center;
+      padding: 18px 20px 14px;
+      box-shadow: 0 4px 20px rgba(255,20,147,0.35);
+      position: relative;
+      z-index: 1;
+    }
+    .header-logo {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      margin-bottom: 6px;
+      display: block;
+      margin: 0 auto 6px;
+    }
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.4rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 3px 8px rgba(0,0,0,0.18);
+    }
+    header p {
+      font-size: 1rem;
+      margin-top: 4px;
+      opacity: 0.93;
+      font-weight: 600;
+    }
+
+    /* ── TIMER BAR ── */
+    #timer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(6px);
+      width: 100%;
+      border-bottom: 3px solid #ff69b4;
+      position: relative;
+      z-index: 1;
+    }
+    #timer-label { font-size: 1rem; color: #c2185b; font-weight: 700; }
+    #timer {
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: #e91e8c;
+      min-width: 55px;
+      text-align: center;
+      font-family: 'Pacifico', cursive;
+    }
+    #timer.urgent { animation: pulse 0.55s infinite; color: #c2185b; }
+    #timer-progress-wrap {
+      width: 160px;
+      height: 12px;
+      background: #fce4ec;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid #f48fb1;
+    }
+    #timer-progress {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #a5d6a7, #ffcc02, #ff1493);
+      background-size: 300% 100%;
+      background-position: 0% 50%;
+      border-radius: 20px;
+      transition: width 0.9s linear, background-position 0.9s linear;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.18); }
+    }
+
+    /* ── INSTRUCTIONS ── */
+    #instructions {
+      width: 100%;
+      text-align: center;
+      padding: 9px 16px;
+      background: rgba(255,105,180,0.15);
+      color: #ad1457;
+      font-size: 0.98rem;
+      font-weight: 700;
+      border-bottom: 2px solid #f48fb1;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── GAME WRAPPER ── */
+    #game-wrapper {
+      width: 100%;
+      max-width: 880px;
+      padding: 14px;
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── GAME AREA ── */
+    #game-area {
+      position: relative;
+      width: 100%;
+      height: 590px;
+      background:
+        radial-gradient(ellipse at 30% 40%, #fff0f7 0%, #ffd6eb 60%, #ffb3d9 100%);
+      background-image:
+        radial-gradient(ellipse at 30% 40%, #fff0f7 0%, #ffd6eb 60%, #ffb3d9 100%),
+        radial-gradient(circle, rgba(255,105,180,0.06) 1px, transparent 1px);
+      background-size: 100% 100%, 20px 20px;
+      border-radius: 24px;
+      border: 4px solid #ff69b4;
+      overflow: hidden;
+      cursor: crosshair;
+      box-shadow:
+        0 8px 32px rgba(255,20,147,0.2),
+        inset 0 0 40px rgba(255,255,255,0.3);
+    }
+
+    /* ── DECORATIVE HEARTS IN CORNERS ── */
+    #game-area::before, #game-area::after {
+      content: '🩷';
+      position: absolute;
+      font-size: 1.4rem;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    #game-area::before { top: 8px; left: 10px; }
+    #game-area::after  { bottom: 8px; right: 10px; }
+
+    /* ── EMOJI ITEMS ── */
+    .emoji-item {
+      position: absolute;
+      user-select: none;
+      cursor: pointer;
+      line-height: 1;
+      will-change: transform;
+    }
+    .emoji-item:hover { filter: drop-shadow(0 0 3px rgba(255,20,147,0.25)); }
+    .emoji-item.wrong { animation: wrongFlash 0.35s ease forwards !important; }
+    @keyframes wrongFlash {
+      0%   { filter: brightness(1); }
+      30%  { filter: brightness(0.2) saturate(0); transform: rotate(var(--rot)) scale(0.65) !important; }
+      100% { filter: brightness(1); }
+    }
+
+    /* ── DRIFTERS ── */
+    @keyframes drift {
+      0%,100% { transform: rotate(var(--rot)) translate(0px, 0px); }
+      25%     { transform: rotate(var(--rot)) translate(var(--dx1), var(--dy1)); }
+      75%     { transform: rotate(var(--rot)) translate(var(--dx2), var(--dy2)); }
+    }
+    .drifter { animation: drift var(--drift-dur) ease-in-out infinite; }
+
+    /* ── DISTRACTORS ── */
+    @keyframes distract {
+      0%,100% { transform: rotate(var(--rot)) scale(1); filter: brightness(1); }
+      50%     { transform: rotate(var(--rot)) scale(1.4);
+                filter: brightness(1.5) drop-shadow(0 0 8px rgba(255,20,147,0.85)); }
+    }
+    .distracter { animation: distract var(--d-dur) ease-in-out infinite; }
+
+    /* ── START SCREEN ── */
+    #start-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,20,147,0.6);
+      backdrop-filter: blur(3px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      z-index: 20;
+      border-radius: 20px;
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+    #start-screen .big-emoji { font-size: 4rem; }
+    #start-screen h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      text-shadow: 1px 2px 6px rgba(0,0,0,0.2);
+    }
+    #start-screen p { font-size: 1rem; opacity: 0.95; max-width: 320px; line-height: 1.55; font-weight: 600; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 13px 34px;
+      border-radius: 50px;
+      border: none;
+      font-size: 1.05rem;
+      font-weight: 800;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      letter-spacing: 0.4px;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.2); }
+    .btn-primary {
+      background: white;
+      color: #e91e8c;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+    .btn-replay {
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      box-shadow: 0 4px 14px rgba(255,20,147,0.35);
+    }
+
+    /* ── OVERLAY ── */
+    #overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(180,0,80,0.55);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #overlay.show { display: flex; }
+    #overlay-box {
+      background: linear-gradient(160deg, #fff0f7, #ffe4f0);
+      border: 3px solid #ff69b4;
+      border-radius: 28px;
+      padding: 40px 36px;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 24px 70px rgba(255,20,147,0.3);
+      animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.65); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+    .overlay-emoji  { font-size: 4.5rem; display: block; margin-bottom: 10px; }
+    #overlay-box h2 { font-family: 'Pacifico', cursive; font-size: 1.9rem; margin-bottom: 8px; }
+    #overlay-box p  { color: #880e4f; font-size: 0.98rem; line-height: 1.6; margin-bottom: 16px; font-weight: 600; }
+
+    .prize-box {
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      border: 2px dashed #e91e8c;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin: 10px 0 20px;
+      color: #880e4f;
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* ── CONFETTI ── */
+    .confetti-piece {
+      position: fixed;
+      top: -20px;
+      opacity: 0;
+      border-radius: 3px;
+      animation: fall linear forwards;
+      z-index: 200;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      0%   { opacity: 1; transform: translateY(0) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(110vh) rotate(720deg); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header h1  { font-size: 1.8rem; }
+      #game-area { height: 450px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <img src="logo.png" alt="P.S. Crepe You" class="header-logo"
+       onerror="this.style.display='none'"/>
+  <h1>🩷 Spot It!</h1>
+  <p>Find the hidden item & <strong>WIN a prize!</strong> 🎉</p>
+</header>
+
+<!-- TIMER BAR -->
+<div id="timer-bar">
+  <span id="timer-label">⏱ Time Left:</span>
+  <span id="timer">15</span>
+  <div id="timer-progress-wrap">
+    <div id="timer-progress"></div>
+  </div>
+</div>
+
+<!-- INSTRUCTIONS -->
+<div id="instructions">
+  🍓 Find the hidden <strong>strawberry</strong> hiding in the crowd — click it to WIN! 🩷
+</div>
+
+<!-- GAME -->
+<div id="game-wrapper">
+  <div id="game-area">
+    <div id="start-screen">
+      <span class="big-emoji">🩷🔍🩷</span>
+      <h2>Ready to Play?</h2>
+      <p>A tiny strawberry is hiding somewhere in the crowd.<br>
+         Find it in <strong>15 seconds</strong> and win a sweet prize!</p>
+      <button class="btn btn-primary" onclick="startGame()">🎮 Let's Go!</button>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay">
+  <div id="overlay-box"></div>
+</div>
+
+<script>
+  /* ── CONFIG ── */
+  const TIMER_SECONDS = 15;
+  const TARGET      = '🍓';
+  const TARGET_NAME = 'strawberry';
+
+  // Flood with visually similar red/round items — hard to distinguish
+  const DECOYS = [
+    '🍎','🍎','🍎','🍒','🍒','🍒','🍅','🍅','🍑','🍑',
+    '🍎','🍒','🍅','🍎','🍒','🍑','🍅','🍎','🍒','🍑',
+    '🍎','🍒','🍅','🍑','🍎','🍒','🍅','🍑','🍎','🍒',
+    '🍊','🍋','🍇','🍇','🫐','🫐','🥝','🥭','🍈','🍏',
+    '🍐','🍌','🍉','🥥','🍊','🍋','🍇','🫐','🍑','🥝',
+    '🌶️','🥕','🍄','🌽','🧅','🥦','🫒','🍆','🥑','🌶️'
+  ];
+
+  let timerInterval = null;
+  let timeLeft      = TIMER_SECONDS;
+  let gameActive    = false;
+
+  function rand(min, max) { return Math.random() * (max - min) + min; }
+
+  /* ── BUILD SCENE ── */
+  function buildScene() {
+    const area = document.getElementById('game-area');
+    area.querySelectorAll('.emoji-item').forEach(el => el.remove());
+
+    const W     = area.clientWidth;
+    const H     = area.clientHeight;
+    const SIZE  = 33;
+    const PAD   = 3;
+    const TOTAL = 125;
+    const placed = [];
+
+    const shuffled = [...DECOYS].sort(() => Math.random() - 0.5);
+
+    function freeSpot() {
+      for (let attempt = 0; attempt < 600; attempt++) {
+        const x = rand(PAD, W - SIZE - PAD);
+        const y = rand(PAD, H - SIZE - PAD);
+        let ok = true;
+        for (const p of placed) {
+          if (Math.abs(p.x - x) < SIZE - 17 && Math.abs(p.y - y) < SIZE - 17) { ok = false; break; }
+        }
+        if (ok) { placed.push({x, y}); return {x, y}; }
+      }
+      return null;
+    }
+
+    function makeItem(emoji, isTarget) {
+      const pos = freeSpot();
+      if (!pos) return;
+      const el = document.createElement('div');
+      el.className   = 'emoji-item';
+      el.textContent = emoji;
+      el.style.left  = pos.x + 'px';
+      el.style.top   = pos.y + 'px';
+
+      const rot = rand(-65, 65);
+      el.style.setProperty('--rot', rot + 'deg');
+
+      if (isTarget) {
+        // Tiny, faded, buried deep
+        el.style.fontSize = '0.88rem';
+        el.style.opacity  = '0.6';
+        el.style.zIndex   = '1';
+        el.style.transform = `rotate(${rot}deg)`;
+      } else {
+        const scale = rand(0.78, 1.35);
+        el.style.fontSize = (2.0 * scale) + 'rem';
+        el.style.zIndex   = String(Math.floor(rand(2, 7)));
+
+        const r = Math.random();
+        if (r < 0.22) {
+          // DRIFTER
+          el.style.setProperty('--dx1', rand(-15, 15) + 'px');
+          el.style.setProperty('--dy1', rand(-15, 15) + 'px');
+          el.style.setProperty('--dx2', rand(-15, 15) + 'px');
+          el.style.setProperty('--dy2', rand(-15, 15) + 'px');
+          el.style.setProperty('--drift-dur', rand(2.2, 5.5) + 's');
+          el.classList.add('drifter');
+        } else if (r < 0.38) {
+          // DISTRACTER — pink glowing fake-out
+          el.style.setProperty('--d-dur', rand(0.8, 2.0) + 's');
+          el.classList.add('distracter');
+          el.style.transform = `rotate(${rot}deg)`;
+        } else {
+          el.style.transform = `rotate(${rot}deg)`;
+        }
+      }
+
+      el.style.setProperty('--base-transform', `rotate(${rot}deg)`);
+      el.dataset.isTarget = isTarget ? '1' : '0';
+      el.addEventListener('click', onItemClick);
+      area.appendChild(el);
+    }
+
+    // Decoys first (higher z-index, visually burying target)
+    for (let i = 0; i < TOTAL - 1; i++) {
+      makeItem(shuffled[i % shuffled.length], false);
+    }
+    makeItem(TARGET, true);
+  }
+
+  /* ── CLICK HANDLER ── */
+  function onItemClick(e) {
+    if (!gameActive) return;
+    const el = e.currentTarget;
+    if (el.dataset.isTarget === '1') {
+      gameActive = false;
+      clearInterval(timerInterval);
+      launchConfetti();
+      showOverlay('win', timeLeft);
+    } else {
+      el.classList.remove('wrong');
+      void el.offsetWidth;
+      el.classList.add('wrong');
+    }
+  }
+
+  /* ── TIMER ── */
+  function tick() {
+    timeLeft--;
+    updateTimerUI();
+    if (timeLeft <= 0) {
+      gameActive = false;
+      clearInterval(timerInterval);
+      showOverlay('lose', 0);
+    }
+  }
+
+  function updateTimerUI() {
+    const el  = document.getElementById('timer');
+    const bar = document.getElementById('timer-progress');
+    el.textContent = timeLeft;
+    const pct = (timeLeft / TIMER_SECONDS) * 100;
+    bar.style.width = pct + '%';
+    bar.style.backgroundPosition = (100 - pct) + '% 50%';
+    el.classList.toggle('urgent', timeLeft <= 5);
+  }
+
+  /* ── GAME FLOW ── */
+  function startGame() {
+    document.getElementById('start-screen').style.display = 'none';
+    timeLeft = TIMER_SECONDS;
+    buildScene();
+    updateTimerUI();
+    gameActive = true;
+    timerInterval = setInterval(tick, 1000);
+  }
+
+  function resetGame() {
+    document.getElementById('overlay').classList.remove('show');
+    timeLeft = TIMER_SECONDS;
+    buildScene();
+    updateTimerUI();
+    document.getElementById('timer').classList.remove('urgent');
+    gameActive = true;
+    timerInterval = setInterval(tick, 1000);
+  }
+
+  /* ── OVERLAYS ── */
+  function showOverlay(type, remaining) {
+    const overlay = document.getElementById('overlay');
+    const box     = document.getElementById('overlay-box');
+
+    if (type === 'win') {
+      box.innerHTML = `
+        <span class="overlay-emoji">🎉</span>
+        <h2 style="color:#e91e8c">You Found It!</h2>
+        <p>You spotted the ${TARGET_NAME} with <strong>${remaining} second${remaining !== 1 ? 's' : ''}</strong> to spare — amazing! 🩷</p>
+        <div class="prize-box">
+          🏆 You WIN a Sweet Prize!<br>
+          <span style="font-weight:600;font-size:0.88rem">Show this screen to a P.S. Crepe You team member to claim your reward 🍓</span>
+        </div>
+        <button class="btn btn-replay" onclick="resetGame()">Play Again 🔄</button>
+      `;
+    } else {
+      box.innerHTML = `
+        <span class="overlay-emoji">⏰</span>
+        <h2 style="color:#c2185b">So Close!</h2>
+        <p>The sneaky little ${TARGET_NAME} was hiding in there! Give it another try — you've totally got this! 🩷</p>
+        <button class="btn btn-replay" onclick="resetGame()" style="margin-top:6px">Try Again 🔄</button>
+      `;
+    }
+    overlay.classList.add('show');
+  }
+
+  /* ── CONFETTI ── */
+  const CONFETTI_COLORS = ['#ff69b4','#ff1493','#ffb3d9','#fff','#f48fb1','#e91e8c','#ffd6eb'];
+  function launchConfetti() {
+    for (let i = 0; i < 90; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left       = rand(0, 100) + 'vw';
+        el.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+        el.style.width      = rand(6, 14) + 'px';
+        el.style.height     = rand(6, 14) + 'px';
+        el.style.borderRadius = Math.random() > 0.4 ? '50%' : '2px';
+        const dur = rand(1.2, 2.8);
+        el.style.animationDuration = dur + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), dur * 1000 + 100);
+      }, i * 16);
+    }
+  }
+</script>
+</body>
+</html>
