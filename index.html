@@ -16,14 +16,11 @@
       flex-direction: column;
       align-items: center;
     }
-
-    /* ── FLOATING HEARTS BACKGROUND ── */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ctext y='40' font-size='24' opacity='0.07'%3E🩷%3C/text%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ctext y='40' font-size='22' opacity='0.07'%3E🩷%3C/text%3E%3C/svg%3E");
       background-size: 60px 60px;
       pointer-events: none;
       z-index: 0;
@@ -35,32 +32,25 @@
       background: linear-gradient(135deg, #ff69b4 0%, #ff1493 60%, #e91e8c 100%);
       color: white;
       text-align: center;
-      padding: 18px 20px 14px;
+      padding: 16px 20px 12px;
       box-shadow: 0 4px 20px rgba(255,20,147,0.35);
       position: relative;
       z-index: 1;
     }
     .header-logo {
-      height: 70px;
+      height: 68px;
       width: auto;
       object-fit: contain;
       filter: brightness(0) invert(1);
-      margin-bottom: 6px;
       display: block;
-      margin: 0 auto 6px;
+      margin: 0 auto 5px;
     }
     header h1 {
       font-family: 'Pacifico', cursive;
-      font-size: 2.4rem;
-      letter-spacing: 1px;
+      font-size: 2.3rem;
       text-shadow: 2px 3px 8px rgba(0,0,0,0.18);
     }
-    header p {
-      font-size: 1rem;
-      margin-top: 4px;
-      opacity: 0.93;
-      font-weight: 600;
-    }
+    header p { font-size: 0.97rem; margin-top: 3px; opacity: 0.93; font-weight: 600; }
 
     /* ── TIMER BAR ── */
     #timer-bar {
@@ -68,101 +58,77 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      padding: 12px 20px;
-      background: rgba(255,255,255,0.75);
+      padding: 11px 20px;
+      background: rgba(255,255,255,0.78);
       backdrop-filter: blur(6px);
       width: 100%;
       border-bottom: 3px solid #ff69b4;
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
     }
-    #timer-label { font-size: 1rem; color: #c2185b; font-weight: 700; }
+    #timer-label { font-size: 0.95rem; color: #c2185b; font-weight: 700; }
     #timer {
-      font-size: 2.3rem;
+      font-size: 2.2rem;
       font-weight: 900;
       color: #e91e8c;
-      min-width: 55px;
+      min-width: 52px;
       text-align: center;
       font-family: 'Pacifico', cursive;
     }
-    #timer.urgent { animation: pulse 0.55s infinite; color: #c2185b; }
+    #timer.urgent { animation: timerPulse 0.55s infinite; color: #c2185b; }
     #timer-progress-wrap {
-      width: 160px;
-      height: 12px;
+      width: 155px; height: 12px;
       background: #fce4ec;
-      border-radius: 20px;
-      overflow: hidden;
+      border-radius: 20px; overflow: hidden;
       border: 1px solid #f48fb1;
     }
     #timer-progress {
-      height: 100%;
-      width: 100%;
+      height: 100%; width: 100%;
       background: linear-gradient(90deg, #a5d6a7, #ffcc02, #ff1493);
       background-size: 300% 100%;
       background-position: 0% 50%;
       border-radius: 20px;
       transition: width 0.9s linear, background-position 0.9s linear;
     }
-
-    @keyframes pulse {
-      0%,100% { transform: scale(1); }
-      50%      { transform: scale(1.18); }
-    }
+    @keyframes timerPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.18)} }
 
     /* ── INSTRUCTIONS ── */
     #instructions {
       width: 100%;
       text-align: center;
-      padding: 9px 16px;
-      background: rgba(255,105,180,0.15);
+      padding: 8px 16px;
+      background: rgba(255,105,180,0.13);
       color: #ad1457;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       font-weight: 700;
       border-bottom: 2px solid #f48fb1;
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
     }
 
     /* ── GAME WRAPPER ── */
     #game-wrapper {
-      width: 100%;
-      max-width: 880px;
+      width: 100%; max-width: 880px;
       padding: 14px;
       flex: 1;
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
     }
 
     /* ── GAME AREA ── */
     #game-area {
       position: relative;
-      width: 100%;
-      height: 590px;
-      background:
-        radial-gradient(ellipse at 30% 40%, #fff0f7 0%, #ffd6eb 60%, #ffb3d9 100%);
+      width: 100%; height: 590px;
+      background: radial-gradient(ellipse at 30% 40%, #fff0f7 0%, #ffd6eb 60%, #ffb3d9 100%);
       background-image:
         radial-gradient(ellipse at 30% 40%, #fff0f7 0%, #ffd6eb 60%, #ffb3d9 100%),
-        radial-gradient(circle, rgba(255,105,180,0.06) 1px, transparent 1px);
+        radial-gradient(circle, rgba(255,105,180,0.07) 1px, transparent 1px);
       background-size: 100% 100%, 20px 20px;
       border-radius: 24px;
       border: 4px solid #ff69b4;
       overflow: hidden;
       cursor: crosshair;
-      box-shadow:
-        0 8px 32px rgba(255,20,147,0.2),
-        inset 0 0 40px rgba(255,255,255,0.3);
+      box-shadow: 0 8px 32px rgba(255,20,147,0.2), inset 0 0 40px rgba(255,255,255,0.3);
     }
-
-    /* ── DECORATIVE HEARTS IN CORNERS ── */
-    #game-area::before, #game-area::after {
-      content: '🩷';
-      position: absolute;
-      font-size: 1.4rem;
-      opacity: 0.18;
-      pointer-events: none;
-    }
-    #game-area::before { top: 8px; left: 10px; }
-    #game-area::after  { bottom: 8px; right: 10px; }
+    #game-area::before { content:'🩷'; position:absolute; top:8px; left:10px; font-size:1.3rem; opacity:0.15; pointer-events:none; }
+    #game-area::after  { content:'🩷'; position:absolute; bottom:8px; right:10px; font-size:1.3rem; opacity:0.15; pointer-events:none; }
 
     /* ── EMOJI ITEMS ── */
     .emoji-item {
@@ -172,143 +138,214 @@
       line-height: 1;
       will-change: transform;
     }
-    .emoji-item:hover { filter: drop-shadow(0 0 3px rgba(255,20,147,0.25)); }
+    .emoji-item:hover { filter: drop-shadow(0 0 3px rgba(255,20,147,0.22)); }
     .emoji-item.wrong { animation: wrongFlash 0.35s ease forwards !important; }
     @keyframes wrongFlash {
-      0%   { filter: brightness(1); }
-      30%  { filter: brightness(0.2) saturate(0); transform: rotate(var(--rot)) scale(0.65) !important; }
-      100% { filter: brightness(1); }
+      0%   { filter:brightness(1); }
+      30%  { filter:brightness(0.2) saturate(0); transform:rotate(var(--rot)) scale(0.65) !important; }
+      100% { filter:brightness(1); }
     }
-
-    /* ── DRIFTERS ── */
     @keyframes drift {
-      0%,100% { transform: rotate(var(--rot)) translate(0px, 0px); }
-      25%     { transform: rotate(var(--rot)) translate(var(--dx1), var(--dy1)); }
-      75%     { transform: rotate(var(--rot)) translate(var(--dx2), var(--dy2)); }
+      0%,100% { transform: rotate(var(--rot)) translate(0px,0px); }
+      25%     { transform: rotate(var(--rot)) translate(var(--dx1),var(--dy1)); }
+      75%     { transform: rotate(var(--rot)) translate(var(--dx2),var(--dy2)); }
     }
     .drifter { animation: drift var(--drift-dur) ease-in-out infinite; }
-
-    /* ── DISTRACTORS ── */
     @keyframes distract {
-      0%,100% { transform: rotate(var(--rot)) scale(1); filter: brightness(1); }
-      50%     { transform: rotate(var(--rot)) scale(1.4);
-                filter: brightness(1.5) drop-shadow(0 0 8px rgba(255,20,147,0.85)); }
+      0%,100% { transform:rotate(var(--rot)) scale(1); filter:brightness(1); }
+      50%     { transform:rotate(var(--rot)) scale(1.4); filter:brightness(1.5) drop-shadow(0 0 8px rgba(255,20,147,0.85)); }
     }
     .distracter { animation: distract var(--d-dur) ease-in-out infinite; }
 
     /* ── START SCREEN ── */
     #start-screen {
-      position: absolute;
-      inset: 0;
-      background: rgba(255,20,147,0.6);
+      position: absolute; inset: 0;
+      background: rgba(255,20,147,0.58);
       backdrop-filter: blur(3px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      z-index: 20;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 13px; z-index: 20;
       border-radius: 20px;
-      color: white;
-      text-align: center;
-      padding: 30px;
+      color: white; text-align: center; padding: 30px;
     }
-    #start-screen .big-emoji { font-size: 4rem; }
-    #start-screen h2 {
-      font-family: 'Pacifico', cursive;
-      font-size: 2rem;
-      text-shadow: 1px 2px 6px rgba(0,0,0,0.2);
-    }
-    #start-screen p { font-size: 1rem; opacity: 0.95; max-width: 320px; line-height: 1.55; font-weight: 600; }
+    #start-screen .big-emoji { font-size: 3.8rem; }
+    #start-screen h2 { font-family:'Pacifico',cursive; font-size:1.9rem; text-shadow:1px 2px 6px rgba(0,0,0,0.2); }
+    #start-screen p  { font-size:0.97rem; opacity:0.95; max-width:310px; line-height:1.55; font-weight:600; }
 
     /* ── BUTTONS ── */
     .btn {
       display: inline-block;
-      padding: 13px 34px;
-      border-radius: 50px;
-      border: none;
-      font-size: 1.05rem;
-      font-weight: 800;
+      padding: 12px 32px;
+      border-radius: 50px; border: none;
+      font-size: 1rem; font-weight: 800;
       font-family: 'Nunito', sans-serif;
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.15s;
-      letter-spacing: 0.4px;
     }
     .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.2); }
-    .btn-primary {
-      background: white;
-      color: #e91e8c;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    .btn-white  { background: white; color: #e91e8c; box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+    .btn-pink   { background: linear-gradient(135deg,#ff69b4,#ff1493); color: white; box-shadow: 0 4px 14px rgba(255,20,147,0.35); }
+    .btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.7); font-size:0.88rem; padding:8px 20px; }
+
+    /* ── PHONE MODAL ── */
+    #phone-modal {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(180,0,80,0.6);
+      backdrop-filter: blur(5px);
+      z-index: 200;
+      align-items: center; justify-content: center;
+      padding: 20px;
     }
-    .btn-replay {
-      background: linear-gradient(135deg, #ff69b4, #ff1493);
-      color: white;
-      box-shadow: 0 4px 14px rgba(255,20,147,0.35);
+    #phone-modal.show { display: flex; }
+    #phone-box {
+      background: linear-gradient(160deg,#fff0f7,#ffe4f0);
+      border: 3px solid #ff69b4;
+      border-radius: 28px;
+      padding: 36px 32px;
+      text-align: center;
+      max-width: 400px; width: 100%;
+      box-shadow: 0 24px 70px rgba(255,20,147,0.3);
+      animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    #phone-box .modal-logo {
+      height: 60px; width: auto;
+      object-fit: contain;
+      display: block; margin: 0 auto 12px;
+    }
+    #phone-box h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.7rem; color: #e91e8c;
+      margin-bottom: 6px;
+    }
+    #phone-box .sub {
+      font-size: 0.93rem; color: #880e4f;
+      margin-bottom: 20px; font-weight: 600; line-height: 1.5;
+    }
+    .input-wrap {
+      position: relative; margin-bottom: 14px;
+    }
+    .input-wrap input[type="tel"] {
+      width: 100%;
+      padding: 13px 16px 13px 44px;
+      border: 2px solid #f48fb1;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      color: #880e4f;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      letter-spacing: 1px;
+    }
+    .input-wrap input[type="tel"]:focus {
+      border-color: #ff1493;
+      box-shadow: 0 0 0 3px rgba(255,20,147,0.15);
+    }
+    .input-wrap input[type="tel"].error { border-color: #e53935; }
+    .input-icon {
+      position: absolute; left: 15px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem; pointer-events: none;
+    }
+    .error-msg {
+      color: #e53935; font-size: 0.82rem;
+      margin-top: -10px; margin-bottom: 10px;
+      font-weight: 700; display: none;
+    }
+    .consent-wrap {
+      display: flex; align-items: flex-start;
+      gap: 10px; text-align: left;
+      background: rgba(255,105,180,0.1);
+      border: 1px solid #f48fb1;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      cursor: pointer;
+    }
+    .consent-wrap input[type="checkbox"] {
+      width: 18px; height: 18px;
+      accent-color: #ff1493;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .consent-wrap label {
+      font-size: 0.82rem; color: #880e4f;
+      font-weight: 600; line-height: 1.45;
+      cursor: pointer;
+    }
+    .consent-wrap label strong { color: #e91e8c; }
+    #phone-error-consent {
+      color: #e53935; font-size: 0.82rem;
+      margin-top: -12px; margin-bottom: 10px;
+      font-weight: 700; display: none;
     }
 
-    /* ── OVERLAY ── */
+    /* ── WIN / LOSE OVERLAY ── */
     #overlay {
       display: none;
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: rgba(180,0,80,0.55);
       backdrop-filter: blur(4px);
       z-index: 100;
-      align-items: center;
-      justify-content: center;
+      align-items: center; justify-content: center;
       padding: 20px;
     }
     #overlay.show { display: flex; }
     #overlay-box {
-      background: linear-gradient(160deg, #fff0f7, #ffe4f0);
+      background: linear-gradient(160deg,#fff0f7,#ffe4f0);
       border: 3px solid #ff69b4;
       border-radius: 28px;
-      padding: 40px 36px;
+      padding: 36px 32px;
       text-align: center;
-      max-width: 420px;
-      width: 100%;
+      max-width: 430px; width: 100%;
       box-shadow: 0 24px 70px rgba(255,20,147,0.3);
       animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
     }
     @keyframes popIn {
-      from { transform: scale(0.65); opacity: 0; }
-      to   { transform: scale(1);    opacity: 1; }
+      from { transform:scale(0.65); opacity:0; }
+      to   { transform:scale(1);    opacity:1; }
     }
-    .overlay-emoji  { font-size: 4.5rem; display: block; margin-bottom: 10px; }
-    #overlay-box h2 { font-family: 'Pacifico', cursive; font-size: 1.9rem; margin-bottom: 8px; }
-    #overlay-box p  { color: #880e4f; font-size: 0.98rem; line-height: 1.6; margin-bottom: 16px; font-weight: 600; }
+    .overlay-emoji  { font-size:4.2rem; display:block; margin-bottom:8px; }
+    #overlay-box h2 { font-family:'Pacifico',cursive; font-size:1.8rem; margin-bottom:7px; }
+    #overlay-box p  { color:#880e4f; font-size:0.95rem; line-height:1.6; margin-bottom:14px; font-weight:600; }
 
     .prize-box {
-      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      background: linear-gradient(135deg,#fce4ec,#f8bbd0);
       border: 2px dashed #e91e8c;
       border-radius: 14px;
-      padding: 14px 18px;
-      margin: 10px 0 20px;
+      padding: 14px 16px;
+      margin: 8px 0 6px;
       color: #880e4f;
-      font-weight: 800;
-      font-size: 1rem;
-      line-height: 1.7;
+      font-weight: 800; font-size: 1rem;
+      line-height: 1.75;
     }
+    .prize-phone {
+      font-size: 1.3rem;
+      color: #e91e8c;
+      letter-spacing: 1px;
+    }
+    .btn-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
 
     /* ── CONFETTI ── */
     .confetti-piece {
-      position: fixed;
-      top: -20px;
-      opacity: 0;
-      border-radius: 3px;
-      animation: fall linear forwards;
-      z-index: 200;
-      pointer-events: none;
+      position:fixed; top:-20px; opacity:0;
+      border-radius:3px;
+      animation:fall linear forwards;
+      z-index:300; pointer-events:none;
     }
     @keyframes fall {
-      0%   { opacity: 1; transform: translateY(0) rotate(0deg); }
-      100% { opacity: 0; transform: translateY(110vh) rotate(720deg); }
+      0%   { opacity:1; transform:translateY(0) rotate(0deg); }
+      100% { opacity:0; transform:translateY(110vh) rotate(720deg); }
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      header h1  { font-size: 1.8rem; }
-      #game-area { height: 450px; }
+    @media (max-width:600px) {
+      header h1 { font-size:1.8rem; }
+      #game-area { height:450px; }
+      #phone-box { padding:28px 20px; }
     }
   </style>
 </head>
@@ -316,24 +353,21 @@
 
 <!-- HEADER -->
 <header>
-  <img src="logo.png" alt="P.S. Crepe You" class="header-logo"
-       onerror="this.style.display='none'"/>
+  <img src="logo.png" alt="P.S. Crepe You" class="header-logo" onerror="this.style.display='none'"/>
   <h1>🩷 Spot It!</h1>
-  <p>Find the hidden item & <strong>WIN a prize!</strong> 🎉</p>
+  <p>Find the hidden item & <strong>WIN a FREE Crepe!</strong> 🎉</p>
 </header>
 
 <!-- TIMER BAR -->
 <div id="timer-bar">
   <span id="timer-label">⏱ Time Left:</span>
   <span id="timer">15</span>
-  <div id="timer-progress-wrap">
-    <div id="timer-progress"></div>
-  </div>
+  <div id="timer-progress-wrap"><div id="timer-progress"></div></div>
 </div>
 
 <!-- INSTRUCTIONS -->
 <div id="instructions">
-  🍓 Find the hidden <strong>strawberry</strong> hiding in the crowd — click it to WIN! 🩷
+  🍓 Find the hidden <strong>strawberry</strong> hiding in the crowd — click it to WIN a free crepe! 🩷
 </div>
 
 <!-- GAME -->
@@ -342,25 +376,54 @@
     <div id="start-screen">
       <span class="big-emoji">🩷🔍🩷</span>
       <h2>Ready to Play?</h2>
-      <p>A tiny strawberry is hiding somewhere in the crowd.<br>
-         Find it in <strong>15 seconds</strong> and win a sweet prize!</p>
-      <button class="btn btn-primary" onclick="startGame()">🎮 Let's Go!</button>
+      <p>A tiny strawberry is hiding in the crowd.<br>
+         Find it in <strong>15 seconds</strong> and win a <strong>FREE crepe!</strong></p>
+      <button class="btn btn-white" onclick="startGame()">🎮 Let's Go!</button>
     </div>
   </div>
 </div>
 
-<!-- OVERLAY -->
+<!-- PHONE COLLECTION MODAL -->
+<div id="phone-modal" class="show">
+  <div id="phone-box">
+    <img src="logo.png" alt="P.S. Crepe You" class="modal-logo" onerror="this.style.display='none'"/>
+    <h2>Win a FREE Crepe! 🍓</h2>
+    <p class="sub">Enter your phone number for a chance to win — and get exclusive deals from P.S. Crepe You! 🩷</p>
+
+    <div class="input-wrap">
+      <span class="input-icon">📱</span>
+      <input type="tel" id="phone-input" placeholder="(555) 555-5555" maxlength="14" oninput="formatPhone(this)" onkeydown="phoneKeydown(event)"/>
+    </div>
+    <div class="error-msg" id="phone-error">Please enter a valid 10-digit phone number.</div>
+
+    <div class="consent-wrap" onclick="toggleConsent()">
+      <input type="checkbox" id="consent-check" onclick="event.stopPropagation()"/>
+      <label for="consent-check">
+        Yes! I'd like to receive <strong>special offers & promotions</strong> from P.S. Crepe You via text message.
+        Message &amp; data rates may apply. Reply STOP to opt out.
+      </label>
+    </div>
+    <div class="error-msg" id="phone-error-consent">Please check the box above to continue.</div>
+
+    <button class="btn btn-pink" style="width:100%" onclick="submitPhone()">
+      🎮 Play & Win!
+    </button>
+  </div>
+</div>
+
+<!-- WIN / LOSE OVERLAY -->
 <div id="overlay">
   <div id="overlay-box"></div>
 </div>
 
 <script>
-  /* ── CONFIG ── */
+  /* ════════════════════════════════
+     CONFIG
+  ════════════════════════════════ */
   const TIMER_SECONDS = 15;
   const TARGET      = '🍓';
   const TARGET_NAME = 'strawberry';
 
-  // Flood with visually similar red/round items — hard to distinguish
   const DECOYS = [
     '🍎','🍎','🍎','🍒','🍒','🍒','🍅','🍅','🍑','🍑',
     '🍎','🍒','🍅','🍎','🍒','🍑','🍅','🍎','🍒','🍑',
@@ -373,10 +436,64 @@
   let timerInterval = null;
   let timeLeft      = TIMER_SECONDS;
   let gameActive    = false;
+  let playerPhone   = '';
 
   function rand(min, max) { return Math.random() * (max - min) + min; }
 
-  /* ── BUILD SCENE ── */
+  /* ════════════════════════════════
+     PHONE MODAL
+  ════════════════════════════════ */
+  function formatPhone(input) {
+    let digits = input.value.replace(/\D/g,'').slice(0,10);
+    let formatted = '';
+    if (digits.length > 0) formatted  = '(' + digits.slice(0,3);
+    if (digits.length >= 4) formatted += ') ' + digits.slice(3,6);
+    if (digits.length >= 7) formatted += '-' + digits.slice(6,10);
+    input.value = formatted;
+    input.classList.remove('error');
+    document.getElementById('phone-error').style.display = 'none';
+  }
+
+  function phoneKeydown(e) {
+    if (e.key === 'Enter') submitPhone();
+  }
+
+  function toggleConsent() {
+    const cb = document.getElementById('consent-check');
+    cb.checked = !cb.checked;
+    document.getElementById('phone-error-consent').style.display = 'none';
+  }
+
+  function submitPhone() {
+    const input   = document.getElementById('phone-input');
+    const consent = document.getElementById('consent-check');
+    const digits  = input.value.replace(/\D/g,'');
+
+    let valid = true;
+
+    if (digits.length !== 10) {
+      input.classList.add('error');
+      document.getElementById('phone-error').style.display = 'block';
+      valid = false;
+    }
+    if (!consent.checked) {
+      document.getElementById('phone-error-consent').style.display = 'block';
+      valid = false;
+    }
+    if (!valid) return;
+
+    playerPhone = input.value.trim();
+
+    // ── TO HOOK UP A REAL DATABASE: send playerPhone + consent to your server here ──
+    // fetch('/api/collect-lead', { method:'POST', body: JSON.stringify({ phone: playerPhone, consent: true }) });
+
+    document.getElementById('phone-modal').classList.remove('show');
+    buildScene();   // fresh layout for this player
+  }
+
+  /* ════════════════════════════════
+     BUILD SCENE  (randomizes fully every call)
+  ════════════════════════════════ */
   function buildScene() {
     const area = document.getElementById('game-area');
     area.querySelectorAll('.emoji-item').forEach(el => el.remove());
@@ -387,7 +504,6 @@
     const PAD   = 3;
     const TOTAL = 125;
     const placed = [];
-
     const shuffled = [...DECOYS].sort(() => Math.random() - 0.5);
 
     function freeSpot() {
@@ -398,7 +514,7 @@
         for (const p of placed) {
           if (Math.abs(p.x - x) < SIZE - 17 && Math.abs(p.y - y) < SIZE - 17) { ok = false; break; }
         }
-        if (ok) { placed.push({x, y}); return {x, y}; }
+        if (ok) { placed.push({x,y}); return {x,y}; }
       }
       return null;
     }
@@ -416,49 +532,45 @@
       el.style.setProperty('--rot', rot + 'deg');
 
       if (isTarget) {
-        // Tiny, faded, buried deep
-        el.style.fontSize = '0.88rem';
-        el.style.opacity  = '0.6';
-        el.style.zIndex   = '1';
+        el.style.fontSize  = '0.88rem';
+        el.style.opacity   = '0.60';
+        el.style.zIndex    = '1';
         el.style.transform = `rotate(${rot}deg)`;
       } else {
         const scale = rand(0.78, 1.35);
         el.style.fontSize = (2.0 * scale) + 'rem';
         el.style.zIndex   = String(Math.floor(rand(2, 7)));
-
         const r = Math.random();
         if (r < 0.22) {
-          // DRIFTER
-          el.style.setProperty('--dx1', rand(-15, 15) + 'px');
-          el.style.setProperty('--dy1', rand(-15, 15) + 'px');
-          el.style.setProperty('--dx2', rand(-15, 15) + 'px');
-          el.style.setProperty('--dy2', rand(-15, 15) + 'px');
-          el.style.setProperty('--drift-dur', rand(2.2, 5.5) + 's');
+          el.style.setProperty('--dx1', rand(-15,15)+'px');
+          el.style.setProperty('--dy1', rand(-15,15)+'px');
+          el.style.setProperty('--dx2', rand(-15,15)+'px');
+          el.style.setProperty('--dy2', rand(-15,15)+'px');
+          el.style.setProperty('--drift-dur', rand(2.2,5.5)+'s');
           el.classList.add('drifter');
         } else if (r < 0.38) {
-          // DISTRACTER — pink glowing fake-out
-          el.style.setProperty('--d-dur', rand(0.8, 2.0) + 's');
+          el.style.setProperty('--d-dur', rand(0.8,2.0)+'s');
           el.classList.add('distracter');
           el.style.transform = `rotate(${rot}deg)`;
         } else {
           el.style.transform = `rotate(${rot}deg)`;
         }
       }
-
       el.style.setProperty('--base-transform', `rotate(${rot}deg)`);
       el.dataset.isTarget = isTarget ? '1' : '0';
       el.addEventListener('click', onItemClick);
       area.appendChild(el);
     }
 
-    // Decoys first (higher z-index, visually burying target)
     for (let i = 0; i < TOTAL - 1; i++) {
       makeItem(shuffled[i % shuffled.length], false);
     }
-    makeItem(TARGET, true);
+    makeItem(TARGET, true);   // always a fresh random spot
   }
 
-  /* ── CLICK HANDLER ── */
+  /* ════════════════════════════════
+     CLICK HANDLER
+  ════════════════════════════════ */
   function onItemClick(e) {
     if (!gameActive) return;
     const el = e.currentTarget;
@@ -474,7 +586,9 @@
     }
   }
 
-  /* ── TIMER ── */
+  /* ════════════════════════════════
+     TIMER
+  ════════════════════════════════ */
   function tick() {
     timeLeft--;
     updateTimerUI();
@@ -495,27 +609,52 @@
     el.classList.toggle('urgent', timeLeft <= 5);
   }
 
-  /* ── GAME FLOW ── */
+  /* ════════════════════════════════
+     GAME FLOW
+  ════════════════════════════════ */
   function startGame() {
     document.getElementById('start-screen').style.display = 'none';
     timeLeft = TIMER_SECONDS;
-    buildScene();
     updateTimerUI();
     gameActive = true;
     timerInterval = setInterval(tick, 1000);
   }
 
-  function resetGame() {
+  // Same player tries again → fresh layout, no phone prompt
+  function tryAgain() {
     document.getElementById('overlay').classList.remove('show');
-    timeLeft = TIMER_SECONDS;
-    buildScene();
-    updateTimerUI();
     document.getElementById('timer').classList.remove('urgent');
+    timeLeft = TIMER_SECONDS;
+    buildScene();          // ← new random item location every try
+    updateTimerUI();
     gameActive = true;
     timerInterval = setInterval(tick, 1000);
   }
 
-  /* ── OVERLAYS ── */
+  // New player → reset phone prompt
+  function newPlayer() {
+    document.getElementById('overlay').classList.remove('show');
+    document.getElementById('timer').classList.remove('urgent');
+    playerPhone = '';
+    // Reset phone form
+    document.getElementById('phone-input').value = '';
+    document.getElementById('phone-input').classList.remove('error');
+    document.getElementById('consent-check').checked = false;
+    document.getElementById('phone-error').style.display = 'none';
+    document.getElementById('phone-error-consent').style.display = 'none';
+    timeLeft = TIMER_SECONDS;
+    updateTimerUI();
+    gameActive = false;
+    // Show phone modal (will call buildScene on submit)
+    document.getElementById('phone-modal').classList.add('show');
+    // Reset start screen
+    const ss = document.getElementById('start-screen');
+    ss.style.display = 'flex';
+  }
+
+  /* ════════════════════════════════
+     OVERLAYS
+  ════════════════════════════════ */
   function showOverlay(type, remaining) {
     const overlay = document.getElementById('overlay');
     const box     = document.getElementById('overlay-box');
@@ -524,43 +663,61 @@
       box.innerHTML = `
         <span class="overlay-emoji">🎉</span>
         <h2 style="color:#e91e8c">You Found It!</h2>
-        <p>You spotted the ${TARGET_NAME} with <strong>${remaining} second${remaining !== 1 ? 's' : ''}</strong> to spare — amazing! 🩷</p>
+        <p>You spotted the ${TARGET_NAME} with <strong>${remaining} second${remaining!==1?'s':''}</strong> to spare! 🩷</p>
         <div class="prize-box">
-          🏆 You WIN a Sweet Prize!<br>
-          <span style="font-weight:600;font-size:0.88rem">Show this screen to a P.S. Crepe You team member to claim your reward 🍓</span>
+          🥞 You WIN a <strong>FREE Crepe!</strong><br>
+          <span class="prize-phone">${playerPhone}</span><br>
+          <span style="font-weight:600;font-size:0.85rem">Show this screen to a team member to claim your free crepe 🍓</span>
         </div>
-        <button class="btn btn-replay" onclick="resetGame()">Play Again 🔄</button>
+        <div class="btn-row">
+          <button class="btn btn-outline" style="background:rgba(255,20,147,0.12);color:#880e4f;border-color:#f48fb1" onclick="newPlayer()">New Player</button>
+          <button class="btn btn-pink" onclick="tryAgain()">Play Again 🔄</button>
+        </div>
       `;
     } else {
       box.innerHTML = `
         <span class="overlay-emoji">⏰</span>
         <h2 style="color:#c2185b">So Close!</h2>
-        <p>The sneaky little ${TARGET_NAME} was hiding in there! Give it another try — you've totally got this! 🩷</p>
-        <button class="btn btn-replay" onclick="resetGame()" style="margin-top:6px">Try Again 🔄</button>
+        <p>The sneaky little ${TARGET_NAME} was hiding in there!<br>Give it another try — the strawberry moves every round! 🩷</p>
+        <div class="btn-row">
+          <button class="btn btn-outline" style="background:rgba(255,20,147,0.12);color:#880e4f;border-color:#f48fb1" onclick="newPlayer()">New Player</button>
+          <button class="btn btn-pink" onclick="tryAgain()">Try Again 🔄</button>
+        </div>
       `;
     }
     overlay.classList.add('show');
   }
 
-  /* ── CONFETTI ── */
+  /* ════════════════════════════════
+     CONFETTI
+  ════════════════════════════════ */
   const CONFETTI_COLORS = ['#ff69b4','#ff1493','#ffb3d9','#fff','#f48fb1','#e91e8c','#ffd6eb'];
   function launchConfetti() {
     for (let i = 0; i < 90; i++) {
       setTimeout(() => {
         const el = document.createElement('div');
         el.className = 'confetti-piece';
-        el.style.left       = rand(0, 100) + 'vw';
-        el.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
-        el.style.width      = rand(6, 14) + 'px';
-        el.style.height     = rand(6, 14) + 'px';
-        el.style.borderRadius = Math.random() > 0.4 ? '50%' : '2px';
+        el.style.left       = rand(0,100) + 'vw';
+        el.style.background = CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)];
+        el.style.width      = rand(6,14)+'px';
+        el.style.height     = rand(6,14)+'px';
+        el.style.borderRadius = Math.random()>0.4 ? '50%' : '2px';
         const dur = rand(1.2, 2.8);
-        el.style.animationDuration = dur + 's';
+        el.style.animationDuration = dur+'s';
         document.body.appendChild(el);
-        setTimeout(() => el.remove(), dur * 1000 + 100);
+        setTimeout(() => el.remove(), dur*1000+100);
       }, i * 16);
     }
   }
+
+  /* ════════════════════════════════
+     INIT — show phone modal on load
+     (already visible via HTML class="show")
+  ════════════════════════════════ */
+  // Pre-build the scene in the background while user fills out form
+  window.addEventListener('load', () => {
+    updateTimerUI();
+  });
 </script>
 </body>
 </html>
